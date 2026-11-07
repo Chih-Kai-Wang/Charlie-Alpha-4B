@@ -4,38 +4,40 @@
 
 # Charlie alpha
 
-Charlie alpha (`Charlie-Alpha-4B`) is a statistical procedure-selection model and local data
-analysis interface for English, Traditional Chinese, and Simplified Chinese. It is an Apple MLX
-4-bit QLoRA derivative of the Apache-2.0-licensed
-[`Qwen3.5-4B`](https://huggingface.co/Qwen/Qwen3.5-4B).
+Charlie alpha (`Charlie-Alpha-4B`) is a model that chooses a statistical procedure for a stated
+analysis question, plus a local interface that runs the chosen analysis on your own files. It works
+in English, Traditional Chinese, and Simplified Chinese. It is a derivative of the
+Apache-2.0-licensed [`Qwen3.5-4B`](https://huggingface.co/Qwen/Qwen3.5-4B), fine-tuned with 4-bit
+QLoRA on Apple MLX.
 
-> Release status: **Experimental v0.3.0**. DGP-Regret reduced regret on the sealed DGP suite, but it
-> did not improve P-Bench or StatQA and regressed on underspecified cases. Treat this release as a
-> procedure-selection research artifact, not an autonomous statistician.
+This release is **Experimental v0.3.0**. Its training method, DGP-Regret, reduced regret on the
+sealed DGP suite, which is scored by the project's own simulator. It did not improve P-Bench or
+StatQA, and it regressed on underspecified cases. Use it for research on procedure selection, not
+as an autonomous statistician.
 
 [繁體中文](README.md) · [简体中文](README.zh-Hans.md) · [Model card](MODEL_CARD.md) ·
 [DGP-Regret report](docs/DGP_REGRET.md)
 
-`main` also contains the unreleased v0.4 development path: a constrained statistics compiler and
-[DGP-Evolve](docs/DGP_EVOLVE.md), with explicit promotion and rollback gates. It does not revise the
-published v0.3 results above.
+The `main` branch also holds unreleased v0.4 development work: a constrained statistics compiler
+and [DGP-Evolve](docs/DGP_EVOLVE.md), which keeps or rolls back each candidate through explicit
+promotion gates. That work does not change the published v0.3 results below.
 
 ## What it does
 
-The runtime holds one 4-bit base and a 2,129,920-parameter adapter:
+The runtime loads one 4-bit base model and one adapter with 2,129,920 parameters.
 
-- Data attachments and statistical questions use the `stats` route. Other requests bypass the
-  adapter through the identical `base` path.
-- The adapter selects among 28 training procedures. The data agent exposes seven more fixed
-  evaluation procedures. Generated text cannot be executed as code.
-- A plan records the estimand, sampling unit, study design, dependence, missingness, method, and
+- Requests with a data attachment or a statistical question use the `stats` route. Other requests
+  use the `base` route, which bypasses the adapter and runs the same base model.
+- The adapter chooses among 28 training procedures, and the data agent adds seven fixed evaluation
+  procedures. Generated text is never executed as code.
+- Each plan records the estimand, sampling unit, study design, dependence, missingness, method, and
   diagnostics.
-- CSV, TSV, JSON, and Parquet files stay local. Python and R run inside a macOS sandbox with no
-  network or access to unrelated user files.
+- CSV, TSV, JSON, and Parquet files stay on your machine. Python and R run inside a macOS sandbox
+  with no network access and no access to unrelated user files.
 
-The API retains `adapter` as an alias for the `stats` route. Numerical tests measured a `0.0`
-maximum logit error between the base bypass and an independently loaded base, and `0.0` after the
-adapter route was restored.
+The API still accepts `adapter` as an alias for the `stats` route. In numerical tests, the maximum
+logit error was `0.0` between the base bypass and an independently loaded base. It was `0.0` again
+after the adapter route was restored.
 
 ## Sealed evaluation
 
@@ -64,8 +66,9 @@ the predeclared 5% ablation gate.
 | Math/code/STEM/general retention | 100% | 100% | No change |
 
 [`reports/stats/evaluation.json`](reports/stats/evaluation.json) contains the aggregate metrics,
-confidence interval, and gate decisions. The release missed the complete capability gate and is
-therefore Experimental.
+confidence interval, and gate decisions. The gains stay inside the DGP task and its trilingual
+variants. P-Bench and StatQA did not move, and underspecified cases fell from 43.33% to 0%. The
+release therefore failed the complete capability gate, which is why it is labeled Experimental.
 
 ## Install and run
 
@@ -115,17 +118,18 @@ hidden reasoning.
 
 ## Known limits
 
-The v0.3 DGP engine is an inspectable semiparametric operating-characteristic emulator. It uses
-common random numbers and 128, 256, or 512 samples. It does not refit all 28 methods to raw tables
+The v0.3 DGP engine is a semiparametric emulator of operating characteristics, and its response
+functions are checked into the repository. It uses common random numbers and 128, 256, or 512
+samples. It does not refit all 28 methods to raw tables
 inside each replication. Final DGP scores measure agreement with this simulator, not general
 statistical optimality.
 
 On P-Bench, the data agent almost always returned `needs_clarification` and produced no scoreable p
-values. The adapter also failed to request missing information on the held-out clarification suite.
+values. On the held-out clarification suite, the adapter never asked for the missing information.
 Users should state the estimand, sampling unit, paired or clustered structure, assignment mechanism,
 and missingness assumptions, then inspect the selected method.
 
-Medical, policy, and financial analyses require review by a qualified statistician. GGUF is
+Medical, policy, and financial analyses need review by a qualified statistician. GGUF is
 withheld because the pinned upstream path does not yet provide a verified fix for the relevant
 Qwen3.5 hybrid tensors. The MLX adapter and fused MLX copy passed clean-environment loading.
 
