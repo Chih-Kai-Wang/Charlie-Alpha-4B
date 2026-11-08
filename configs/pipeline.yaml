@@ -101,7 +101,7 @@ evaluation:
   max_gguf_regression_points: 2.0
 
 release:
-  github_repo: "f0909172434/Charlie-Alpha-4B"
+  github_repo: "Chih-Kai-Wang/Charlie-Alpha-4B"
   tag: "v0.1.0"
   hf_mlx_slug: "Charlie-Alpha-4B-MLX-4bit"
   hf_gguf_slug: "Charlie-Alpha-4B-GGUF"
