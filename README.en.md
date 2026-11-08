@@ -85,7 +85,7 @@ uv run charlie-alpha stats analyze \
   --data survey.csv \
   --question "Compare treatment and control means under independent random assignment." \
   --language en \
-  --adapter-path f0909172434/Charlie-Alpha-4B-MLX-4bit
+  --adapter-path Chih-Kai-Wang/Charlie-Alpha-4B-MLX-4bit
 ```
 
 Start a multi-turn session:
@@ -93,14 +93,14 @@ Start a multi-turn session:
 ```bash
 uv run charlie-alpha stats chat \
   --data survey.csv \
-  --adapter-path f0909172434/Charlie-Alpha-4B-MLX-4bit
+  --adapter-path Chih-Kai-Wang/Charlie-Alpha-4B-MLX-4bit
 ```
 
 The local OpenAI-compatible API binds to `127.0.0.1` by default:
 
 ```bash
 uv run charlie-alpha stats serve \
-  --adapter-path f0909172434/Charlie-Alpha-4B-MLX-4bit
+  --adapter-path Chih-Kai-Wang/Charlie-Alpha-4B-MLX-4bit
 
 curl http://127.0.0.1:8080/v1/chat/completions \
   -H 'Content-Type: application/json' \

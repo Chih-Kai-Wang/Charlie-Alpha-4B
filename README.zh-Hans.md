@@ -79,7 +79,7 @@ uv run charlie-alpha stats analyze \
   --data survey.csv \
   --question "比较 treatment 和 control 的平均结果，数据来自独立随机分派。" \
   --language zh_Hans \
-  --adapter-path f0909172434/Charlie-Alpha-4B-MLX-4bit
+  --adapter-path Chih-Kai-Wang/Charlie-Alpha-4B-MLX-4bit
 ```
 
 多轮对话：
@@ -87,14 +87,14 @@ uv run charlie-alpha stats analyze \
 ```bash
 uv run charlie-alpha stats chat \
   --data survey.csv \
-  --adapter-path f0909172434/Charlie-Alpha-4B-MLX-4bit
+  --adapter-path Chih-Kai-Wang/Charlie-Alpha-4B-MLX-4bit
 ```
 
 本地 OpenAI-compatible API 默认只绑定 `127.0.0.1`：
 
 ```bash
 uv run charlie-alpha stats serve \
-  --adapter-path f0909172434/Charlie-Alpha-4B-MLX-4bit
+  --adapter-path Chih-Kai-Wang/Charlie-Alpha-4B-MLX-4bit
 
 curl http://127.0.0.1:8080/v1/chat/completions \
   -H 'Content-Type: application/json' \

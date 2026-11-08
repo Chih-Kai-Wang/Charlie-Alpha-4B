@@ -20,7 +20,7 @@ lead. For a live continuation, recheck Git and artifact hashes before mutating a
 - Trainable base: `mlx-community/Qwen3.5-4B-MLX-4bit` at revision
   `32f3e8ecf65426fc3306969496342d504bfa13f3`.
 - Public release: Experimental v0.3.0, Hugging Face
-  `f0909172434/Charlie-Alpha-4B-MLX-4bit`, revision
+  `Chih-Kai-Wang/Charlie-Alpha-4B-MLX-4bit`, revision
   `dd6afeb30a3126b62535a5e2f5920f4fe5d33142`, tag `v0.3.0`.
 - Latest completed research stage: v0.6 targeted repair selection. It completed and failed its
   registered selection gate; no v0.6 downstream surface opened.

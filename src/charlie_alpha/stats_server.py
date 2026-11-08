@@ -84,7 +84,7 @@ def serve(config_path: str, host: str, port: int, adapter_path: str | None = Non
                             {
                                 "id": "Charlie-Alpha-4B",
                                 "object": "model",
-                                "owned_by": "f0909172434",
+                                "owned_by": "Chih-Kai-Wang",
                             }
                         ],
                     },

@@ -126,8 +126,8 @@ stats_evaluation:
 stats_release:
   github_repo: "Chih-Kai-Wang/Charlie-Alpha-4B"
   tag: "v0.3.0"
-  hf_mlx_repo: "f0909172434/Charlie-Alpha-4B-MLX-4bit"
-  hf_gguf_repo: "f0909172434/Charlie-Alpha-4B-GGUF"
+  hf_mlx_repo: "Chih-Kai-Wang/Charlie-Alpha-4B-MLX-4bit"
+  hf_gguf_repo: "Chih-Kai-Wang/Charlie-Alpha-4B-GGUF"
   gguf_quantization: "Q4_K_M"
   preserve_tag: "v0.2.0"
   allow_experimental: true
